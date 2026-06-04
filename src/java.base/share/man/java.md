@@ -3031,7 +3031,6 @@ when they're used.
 
     ```
     -XX:{+|-}TieredCompilation
-    -XX:CompilationMode=mode
     -XX:TieredStopAtLevel=n
     -XX:{+|-}EnableJVMCI
     -XX:{+|-}UseJVMCICompiler
