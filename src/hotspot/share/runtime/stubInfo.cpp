@@ -1116,7 +1116,7 @@ void initialize_stub_info() {
   ResourceMark rm;
   StubInfo::populate_stub_tables();
 
-  if (LogTarget(Debug, stubs) lt; lt.is_enabled()) {
+  if (const LogTarget(Debug, stubs) lt; lt.is_enabled()) {
     LogStream ls(lt);
     StubInfo::dump_tables(ls);
   }

@@ -350,7 +350,7 @@ void ChunkManager::purge() {
   if (reserved_after == reserved_before && committed_after == committed_before) {
     UL(info, "nothing reclaimed.");
   } else {
-    if (LogTarget(Info, metaspace) lt; lt.is_enabled()) {
+    if (const LogTarget(Info, metaspace) lt; lt.is_enabled()) {
       LogStream ls(lt);
       ls.print_cr(LOGFMT ": finished reclaiming memory: ", LOGFMT_ARGS);
       ls.print("reserved: ");

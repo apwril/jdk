@@ -345,7 +345,7 @@ void ShenandoahNMethodTable::finish_iteration(ShenandoahNMethodTableSnapshot* sn
 }
 
 void ShenandoahNMethodTable::log_register_nmethod(nmethod* nm) {
-  LogTarget(Debug, gc, nmethod) log;
+  const LogTarget(Debug, gc, nmethod) log;
   if (!log.is_enabled()) {
     return;
   }
@@ -359,7 +359,7 @@ void ShenandoahNMethodTable::log_register_nmethod(nmethod* nm) {
 }
 
 void ShenandoahNMethodTable::log_unregister_nmethod(nmethod* nm) {
-  LogTarget(Debug, gc, nmethod) log;
+  const LogTarget(Debug, gc, nmethod) log;
   if (!log.is_enabled()) {
     return;
   }

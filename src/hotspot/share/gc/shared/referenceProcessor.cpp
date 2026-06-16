@@ -547,7 +547,7 @@ public:
 };
 
 void ReferenceProcessor::log_reflist(const char* prefix, DiscoveredList list[], uint num_active_queues) {
-  LogTarget(Trace, gc, ref) lt;
+  const LogTarget(Trace, gc, ref) lt;
 
   if (!lt.is_enabled()) {
     return;

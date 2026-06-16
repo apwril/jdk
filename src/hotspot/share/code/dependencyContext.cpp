@@ -72,7 +72,7 @@ void DependencyContext::mark_dependent_nmethods(DeoptimizationScope* deopt_scope
     if (nm->is_marked_for_deoptimization()) {
       deopt_scope->dependent(nm);
     } else if (nm->check_dependency_on(changes)) {
-      if (LogTarget(Info, dependencies) lt; lt.is_enabled()) {
+      if (const LogTarget(Info, dependencies) lt; lt.is_enabled()) {
         ResourceMark rm;
         LogStream ls(&lt);
         ls.print_cr("Marked for deoptimization");

@@ -80,7 +80,7 @@ static void trace_type_profile(Compile* C, ciMethod* method, JVMState* jvms,
     }
   }
 
-  if (LogTarget(Debug, jit, inlining) lt; lt.is_enabled()) {
+  if (const LogTarget(Debug, jit, inlining) lt; lt.is_enabled()) {
     LogStream ls(lt);
     print_trace_type_profile(&ls, depth, prof_klass, site_count, receiver_count, true);
   }

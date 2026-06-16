@@ -2970,7 +2970,7 @@ void ShenandoahFreeSet::log_status() {
 
 #ifdef ASSERT
   // Dump of the FreeSet details is only enabled if assertions are enabled
-  if (LogTarget(Debug, gc, free) debug_free; debug_free.is_enabled()) {
+  if (const LogTarget(Debug, gc, free) debug_free; debug_free.is_enabled()) {
 #define BUFFER_SIZE 80
     LogStream ls(debug_free);
 
@@ -3035,7 +3035,7 @@ void ShenandoahFreeSet::log_status() {
   }
 #endif
 
-  if (LogTarget(Info, gc, free) lt; lt.is_enabled()) {
+  if (const LogTarget(Info, gc, free) lt; lt.is_enabled()) {
     ResourceMark rm;
     LogStream ls(lt);
 

@@ -1874,7 +1874,7 @@ void LinkResolver::resolve_invokedynamic(CallInfo& result, const constantPoolHan
 
   resolve_dynamic_call(result, bootstrap_specifier, CHECK);
 
-  if (LogTarget(Debug, methodhandles, indy) lt_indy; lt_indy.is_enabled()) {
+  if (const LogTarget(Debug, methodhandles, indy) lt_indy; lt_indy.is_enabled()) {
     LogStream ls(lt_indy);
     bootstrap_specifier.print_msg_on(&ls, "resolve_invokedynamic");
   }

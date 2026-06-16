@@ -776,7 +776,7 @@ void Metaspace::global_initialize() {
       if (rs.is_reserved()) {
         log_info(metaspace)("Successfully forced class space address to " PTR_FORMAT, p2i(base));
       } else {
-        if (LogTarget(Debug, metaspace) lt; lt.is_enabled()) {
+        if (const LogTarget(Debug, metaspace) lt; lt.is_enabled()) {
           LogStream ls(lt);
           os::print_memory_mappings((char*)base, size, &ls);
         }
@@ -844,7 +844,7 @@ void Metaspace::global_initialize() {
 
   _tracer = new MetaspaceTracer();
 
-  if (LogTarget(Info, gc, metaspace) lt; lt.is_enabled()) {
+  if (const LogTarget(Info, gc, metaspace) lt; lt.is_enabled()) {
     LogStream ls(lt);
     CDS_ONLY(AOTMetaspace::print_on(&ls);)
     Metaspace::print_compressed_class_space(&ls);

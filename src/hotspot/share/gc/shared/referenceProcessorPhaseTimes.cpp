@@ -248,7 +248,7 @@ void ReferenceProcessorPhaseTimes::set_balance_queues_time_ms(ReferenceProcessor
 
 void ReferenceProcessorPhaseTimes::print_all_references(uint base_indent, bool print_total) const {
   if (print_total) {
-    if (LogTarget(Debug, gc, phases, ref) lt; lt.is_enabled()) {
+    if (const LogTarget(Debug, gc, phases, ref) lt; lt.is_enabled()) {
       LogStream ls(lt);
       ls.print_cr("%s%s: " TIME_FORMAT,
                   Indents[base_indent], "Reference Processing", total_time_ms());
@@ -268,7 +268,7 @@ void ReferenceProcessorPhaseTimes::print_all_references(uint base_indent, bool p
 }
 
 void ReferenceProcessorPhaseTimes::print_reference(ReferenceType ref_type, uint base_indent) const {
-  if (LogTarget(Debug, gc, phases, ref) lt; lt.is_enabled()) {
+  if (const LogTarget(Debug, gc, phases, ref) lt; lt.is_enabled()) {
     LogStream ls(lt);
 
     int const ref_type_index = ref_type_2_index(ref_type);
@@ -300,7 +300,7 @@ void ReferenceProcessorPhaseTimes::print_phase(ReferenceProcessor::RefProcPhases
               indent == 0 ? "" : ":", /* 0 indent logs don't need colon. */
               phase_time);
 
-  if (LogTarget(Debug, gc, phases, ref) lt2; lt2.is_enabled()) {
+  if (const LogTarget(Debug, gc, phases, ref) lt2; lt2.is_enabled()) {
     LogStream ls(lt2);
 
     if (_processing_is_mt) {
@@ -343,7 +343,7 @@ void ReferenceProcessorPhaseTimes::print_worker_time(LogStream* ls, WorkerDataAr
   ls->print("%s", Indents[indent]);
   if (_processing_is_mt) {
     worker_time->print_summary_on(ls, true);
-    if (LogTarget(Trace, gc, phases, task) lt; lt.is_enabled()) {
+    if (const LogTarget(Trace, gc, phases, task) lt; lt.is_enabled()) {
       LogStream ls2(lt);
       ls2.print("%s", Indents[indent]);
       worker_time->print_details_on(&ls2);

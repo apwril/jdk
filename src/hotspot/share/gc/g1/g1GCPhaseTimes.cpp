@@ -309,7 +309,7 @@ size_t G1GCPhaseTimes::sum_thread_work_items(GCParPhases phase, uint index) {
 
 template <class T>
 void G1GCPhaseTimes::details(T* phase, uint indent_level) const {
-  if (LogTarget(Trace, gc, phases, task) lt; lt.is_enabled()) {
+  if (const LogTarget(Trace, gc, phases, task) lt; lt.is_enabled()) {
     LogStream ls(lt);
     ls.sp(indent_level * 2);
     phase->print_details_on(&ls);
@@ -328,7 +328,7 @@ void G1GCPhaseTimes::print_thread_work_items(WorkerDataArray<double>* phase, uin
 }
 
 void G1GCPhaseTimes::debug_phase_merge_remset() const {
-  LogTarget(Debug, gc, phases) lt;
+  const LogTarget(Debug, gc, phases) lt;
   if (!lt.is_enabled()) {
     return;
   }
@@ -358,14 +358,14 @@ void G1GCPhaseTimes::log_phase(WorkerDataArray<double>* phase, uint indent_level
 }
 
 void G1GCPhaseTimes::debug_phase(WorkerDataArray<double>* phase, uint extra_indent) const {
-  if (LogTarget(Debug, gc, phases) lt; lt.is_enabled()) {
+  if (const LogTarget(Debug, gc, phases) lt; lt.is_enabled()) {
     LogStream ls(lt);
     log_phase(phase, 2 + extra_indent, &ls, true);
   }
 }
 
 void G1GCPhaseTimes::trace_phase(WorkerDataArray<double>* phase, bool print_sum, uint extra_indent) const {
-  if (LogTarget(Trace, gc, phases) lt; lt.is_enabled()) {
+  if (const LogTarget(Trace, gc, phases) lt; lt.is_enabled()) {
     LogStream ls(lt);
     log_phase(phase, 3 + extra_indent, &ls, print_sum);
   }

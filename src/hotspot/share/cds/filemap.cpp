@@ -1637,13 +1637,13 @@ bool FileMapInfo::can_use_heap_region() {
       ShouldNotReachHere();
     };
     if (CDSConfig::new_aot_flags_used()) {
-      if (LogTarget(Info, aot) lt; lt.is_enabled()) {
+      if (const LogTarget(Info, aot) lt; lt.is_enabled()) {
         LogStream ls(lt);
         ls.print_raw(ss.base());
         header()->print(&ls);
       }
     } else {
-      if (LogTarget(Info, cds) lt; lt.is_enabled()) {
+      if (const LogTarget(Info, cds) lt; lt.is_enabled()) {
         LogStream ls(lt);
         ls.print_raw(ss.base());
         header()->print(&ls);

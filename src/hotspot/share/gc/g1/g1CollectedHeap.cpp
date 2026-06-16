@@ -1871,7 +1871,7 @@ static bool gc_counter_less_than(uint x, uint y) {
 // Macro so msg printing is format-checked.
 #define LOG_COLLECT_CONCURRENTLY(cause, ...)                            \
   do {                                                                  \
-    if (LogTarget(Trace, gc) LOG_COLLECT_CONCURRENTLY_lt;                \
+    if (const LogTarget(Trace, gc) LOG_COLLECT_CONCURRENTLY_lt;                \
         LOG_COLLECT_CONCURRENTLY_lt.is_enabled()) {                     \
       ResourceMark rm; /* For thread name. */                           \
       LogStream LOG_COLLECT_CONCURRENTLY_s(&LOG_COLLECT_CONCURRENTLY_lt); \
@@ -2351,7 +2351,7 @@ bool G1CollectedHeap::is_obj_dead_cond(const oop obj,
 }
 
 void G1CollectedHeap::print_heap_regions() const {
-  if (LogTarget(Trace, gc, heap, region) lt; lt.is_enabled()) {
+  if (const LogTarget(Trace, gc, heap, region) lt; lt.is_enabled()) {
     LogStream ls(lt);
     print_regions_on(&ls);
   }
@@ -2520,7 +2520,7 @@ void G1CollectedHeap::uncommit_regions_if_necessary() {
 }
 
 void G1CollectedHeap::verify_numa_regions(const char* desc) {
-  if (LogTarget(Trace, gc, heap, verify) lt; lt.is_enabled()) {
+  if (const LogTarget(Trace, gc, heap, verify) lt; lt.is_enabled()) {
     LogStream ls(lt);
     // Iterate all heap regions to print matching between preferred numa id and actual numa id.
     G1NodeIndexCheckClosure cl(desc, _numa, &ls);

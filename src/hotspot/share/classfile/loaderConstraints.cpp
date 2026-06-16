@@ -154,7 +154,7 @@ void LoaderConstraint::extend_loader_constraint(Symbol* class_name,
                                                 ClassLoaderData* loader,
                                                 InstanceKlass* klass) {
   add_loader_data(loader);
-  if (LogTarget(Info, class, loader, constraints) lt; lt.is_enabled()) {
+  if (const LogTarget(Info, class, loader, constraints) lt; lt.is_enabled()) {
     ResourceMark rm;
     lt.print("extending constraint for name %s by adding loader: %s %s",
                class_name->as_C_string(),
@@ -296,7 +296,7 @@ void LoaderConstraintTable::purge_loader_constraints() {
 
 static void log_ldr_constraint_msg(Symbol* class_name, const char* reason,
                                    ClassLoaderData* loader1, ClassLoaderData* loader2) {
-  if (LogTarget(Info, class, loader, constraints) lt; lt.is_enabled()) {
+  if (const LogTarget(Info, class, loader, constraints) lt; lt.is_enabled()) {
     ResourceMark rm;
     lt.print("Failed to add constraint for name: %s, loader[0]: %s,"
                 " loader[1]: %s, Reason: %s",
@@ -472,7 +472,7 @@ void LoaderConstraintTable::merge_loader_constraints(Symbol* class_name,
     dest->add_loader_data(src->loader_data(i));
   }
 
-  if (LogTarget(Info, class, loader, constraints) lt; lt.is_enabled()) {
+  if (const LogTarget(Info, class, loader, constraints) lt; lt.is_enabled()) {
     ResourceMark rm;
     lt.print("merged constraints for name %s, new loader list:", class_name->as_C_string());
 
