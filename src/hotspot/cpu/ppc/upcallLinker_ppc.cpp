@@ -89,8 +89,7 @@ address UpcallLinker::make_upcall_stub(jobject receiver, Symbol* signature,
   ArgumentShuffle arg_shuffle(in_regs, filtered_out_regs, abi._scratch1);
 
 #ifndef PRODUCT
-  LogTarget(Trace, foreign, upcall) lt;
-  if (lt.is_enabled()) {
+  if (LogTarget(Trace, foreign, upcall) lt; lt.is_enabled()) {
     LogStream ls(lt);
     arg_shuffle.print_on(&ls);
   }

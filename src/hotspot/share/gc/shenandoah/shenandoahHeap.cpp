@@ -1492,8 +1492,7 @@ void ShenandoahHeap::process_gc_stats() const {
   phase_timings()->flush_par_workers_to_cycle();
 
   // Print GC stats for current cycle
-  LogTarget(Info, gc, stats) lt;
-  if (lt.is_enabled()) {
+  if (LogTarget(Info, gc, stats) lt; lt.is_enabled()) {
     ResourceMark rm;
     LogStream ls(lt);
     phase_timings()->print_cycle_on(&ls);
@@ -1682,8 +1681,7 @@ void ShenandoahHeap::gc_threads_do(ThreadClosure* tcl) const {
 }
 
 void ShenandoahHeap::print_tracing_info() const {
-  LogTarget(Info, gc, stats) lt;
-  if (lt.is_enabled()) {
+  if (LogTarget(Info, gc, stats) lt; lt.is_enabled()) {
     ResourceMark rm;
     LogStream ls(lt);
 

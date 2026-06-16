@@ -65,8 +65,7 @@ void VM_Operation::set_calling_thread(Thread* thread) {
 
 void VM_Operation::evaluate() {
   ResourceMark rm;
-  LogTarget(Debug, vmoperation) lt;
-  if (lt.is_enabled()) {
+  if (LogTarget(Debug, vmoperation) lt; lt.is_enabled()) {
     LogStream ls(lt);
     ls.print("begin ");
     print_on_error(&ls);
