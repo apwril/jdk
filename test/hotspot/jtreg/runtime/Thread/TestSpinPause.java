@@ -21,13 +21,9 @@
  * questions.
  */
 
-// Each SpinPause configuration has its own @test block so jtreg can run them
-// concurrently. Keep the blocks in sync when adding a new configuration.
-
-/**
+/*
  * @test id=default
- * @summary JVM runtime can use SpinPause function for synchronized statements.
- *          Check different implementations of JVM SpinPause don't crash JVM.
+ * @summary Check the default SpinPause implementation for synchronized statements.
  * @bug 8278241
  * @library /test/lib
  * @requires os.arch=="aarch64"
@@ -36,10 +32,9 @@
  * @run main/othervm -Xcomp TestSpinPause
  */
 
-/**
+/*
  * @test id=none
- * @summary JVM runtime can use SpinPause function for synchronized statements.
- *          Check different implementations of JVM SpinPause don't crash JVM.
+ * @summary Check SpinPause for synchronized statements with OnSpinWaitInst=none.
  * @bug 8278241
  * @library /test/lib
  * @requires os.arch=="aarch64"
@@ -48,10 +43,9 @@
  * @run main/othervm -Xcomp -XX:+UnlockDiagnosticVMOptions -XX:OnSpinWaitInst=none TestSpinPause
  */
 
-/**
+/*
  * @test id=nop
- * @summary JVM runtime can use SpinPause function for synchronized statements.
- *          Check different implementations of JVM SpinPause don't crash JVM.
+ * @summary Check SpinPause for synchronized statements with OnSpinWaitInst=nop.
  * @bug 8278241
  * @library /test/lib
  * @requires os.arch=="aarch64"
@@ -60,10 +54,9 @@
  * @run main/othervm -Xcomp -XX:+UnlockDiagnosticVMOptions -XX:OnSpinWaitInst=nop TestSpinPause
  */
 
-/**
+/*
  * @test id=isb
- * @summary JVM runtime can use SpinPause function for synchronized statements.
- *          Check different implementations of JVM SpinPause don't crash JVM.
+ * @summary Check SpinPause for synchronized statements with OnSpinWaitInst=isb.
  * @bug 8278241
  * @library /test/lib
  * @requires os.arch=="aarch64"
@@ -72,10 +65,9 @@
  * @run main/othervm -Xcomp -XX:+UnlockDiagnosticVMOptions -XX:OnSpinWaitInst=isb TestSpinPause
  */
 
-/**
+/*
  * @test id=yield
- * @summary JVM runtime can use SpinPause function for synchronized statements.
- *          Check different implementations of JVM SpinPause don't crash JVM.
+ * @summary Check SpinPause for synchronized statements with OnSpinWaitInst=yield.
  * @bug 8278241
  * @library /test/lib
  * @requires os.arch=="aarch64"
@@ -84,10 +76,9 @@
  * @run main/othervm -Xcomp -XX:+UnlockDiagnosticVMOptions -XX:OnSpinWaitInst=yield TestSpinPause
  */
 
-/**
+/*
  * @test id=nop-count-10
- * @summary JVM runtime can use SpinPause function for synchronized statements.
- *          Check different implementations of JVM SpinPause don't crash JVM.
+ * @summary Check SpinPause for synchronized statements with OnSpinWaitInst=nop and OnSpinWaitInstCount=10.
  * @bug 8278241
  * @library /test/lib
  * @requires os.arch=="aarch64"
@@ -96,10 +87,9 @@
  * @run main/othervm -Xcomp -XX:+UnlockDiagnosticVMOptions -XX:OnSpinWaitInst=nop -XX:OnSpinWaitInstCount=10 TestSpinPause
  */
 
-/**
+/*
  * @test id=isb-count-3
- * @summary JVM runtime can use SpinPause function for synchronized statements.
- *          Check different implementations of JVM SpinPause don't crash JVM.
+ * @summary Check SpinPause for synchronized statements with OnSpinWaitInst=isb and OnSpinWaitInstCount=3.
  * @bug 8278241
  * @library /test/lib
  * @requires os.arch=="aarch64"
@@ -108,10 +98,9 @@
  * @run main/othervm -Xcomp -XX:+UnlockDiagnosticVMOptions -XX:OnSpinWaitInst=isb -XX:OnSpinWaitInstCount=3 TestSpinPause
  */
 
-/**
+/*
  * @test id=yield-count-3
- * @summary JVM runtime can use SpinPause function for synchronized statements.
- *          Check different implementations of JVM SpinPause don't crash JVM.
+ * @summary Check SpinPause for synchronized statements with OnSpinWaitInst=yield and OnSpinWaitInstCount=3.
  * @bug 8278241
  * @library /test/lib
  * @requires os.arch=="aarch64"
