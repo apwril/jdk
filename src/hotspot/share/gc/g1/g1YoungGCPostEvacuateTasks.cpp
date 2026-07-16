@@ -151,14 +151,18 @@ class G1PostEvacuateCollectionSetCleanupTask1::UpdateCodeRootsTask
   };
 
   G1ParScanThreadStateSet* _psss;
+  G1ParScanSharedState* _shared_state;
   G1HeapRegionClaimer _claimer;
 
 public:
   UpdateCodeRootsTask(G1ParScanThreadStateSet* per_thread_states)
-    : G1AbstractSubTask(G1GCPhaseTimes::UpdateCodeRoots), _psss(per_thread_states), _claimer(0) { }
+    : G1AbstractSubTask(G1GCPhaseTimes::UpdateCodeRoots),
+      _psss(per_thread_states),
+      _shared_state(per_thread_states->shared_state()),
+      _claimer(0) { }
 
   double worker_cost() const override {
-    return _psss->num_nmethod_regions_to_add();
+    return _shared_state->num_nmethod_regions_to_add();
   }
 
   void set_max_workers(uint max_workers) override {
@@ -167,7 +171,7 @@ public:
 
   void do_work(uint worker_id) override {
     ProcessRegionClosure cl(_psss);
-    _psss->par_iterate_nmethod_regions_to_add(&cl, &_claimer, worker_id);
+    _shared_state->par_iterate_nmethod_regions_to_add(&cl, &_claimer, worker_id);
   }
 };
 

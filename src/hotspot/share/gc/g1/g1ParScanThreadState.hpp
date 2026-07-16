@@ -47,16 +47,35 @@ class G1CollectionSet;
 class G1EvacFailureRegions;
 class G1EvacuationRootClosures;
 class G1OopStarChunkedList;
-class G1ParScanThreadStateSet;
 class G1PLABAllocator;
 class G1HeapRegion;
 class outputStream;
 
 typedef GrowableArrayCHeap<nmethod*, mtGC> G1NmethodSet;
 typedef ResizeableHashTable<uint, G1NmethodSet*, AnyObj::C_HEAP, mtGC> G1NmethodsToAdd;
+
+class G1ParScanSharedState : public StackObj {
+  G1CollectedHeap* _g1h;
+
+  CHeapBitMap _has_nmethods_to_add;
+  Atomic<uint> _num_nmethod_regions_to_add;
+  uint* _nmethod_regions_to_add;
+
+public:
+  G1ParScanSharedState(G1CollectedHeap* g1h);
+  ~G1ParScanSharedState();
+
+  // Updates the region set that has code root updates with the regions in the given set.
+  void update_nmethod_regions_to_add(G1NmethodsToAdd* nmethods);
+  void par_iterate_nmethod_regions_to_add(G1HeapRegionClosure* cl,
+                                          G1HeapRegionClaimer* claimer,
+                                          uint worker_id);
+  uint num_nmethod_regions_to_add() const { return _num_nmethod_regions_to_add.load_relaxed(); }
+};
+
 class G1ParScanThreadState : public CHeapObj<mtGC> {
   G1CollectedHeap* _g1h;
-  G1ParScanThreadStateSet* _per_thread_states;
+  G1ParScanSharedState* _shared_state;
   G1ScannerTasksQueue* _task_queue;
   G1CardTable* _ct;
   G1EvacuationRootClosures* _closures;
@@ -124,7 +143,7 @@ class G1ParScanThreadState : public CHeapObj<mtGC> {
 
 public:
   G1ParScanThreadState(G1CollectedHeap* g1h,
-                       G1ParScanThreadStateSet* per_thread_states,
+                       G1ParScanSharedState* shared_state,
                        uint worker_id,
                        uint num_workers,
                        G1CollectionSet* collection_set,
@@ -274,16 +293,13 @@ public:
 
 class G1ParScanThreadStateSet : public StackObj {
   G1CollectedHeap* _g1h;
+  G1ParScanSharedState _shared_state;
   G1CollectionSet* _collection_set;
   G1ParScanThreadState** _states;
   size_t* _surviving_young_words_total;
   uint _num_workers;
   bool _flushed;
   G1EvacFailureRegions* _evac_failure_regions;
-
-  CHeapBitMap _has_nmethods_to_add;
-  Atomic<uint> _num_nmethod_regions_to_add;
-  uint* _nmethod_regions_to_add;
 
  public:
   G1ParScanThreadStateSet(G1CollectedHeap* g1h,
@@ -295,19 +311,13 @@ class G1ParScanThreadStateSet : public StackObj {
   void flush_stats();
   void destroy_worker_states();
 
-  // Updates the region set that has code root updates with the regions in the given set.
-  void update_nmethod_regions_to_add(G1NmethodsToAdd* nmethods);
-  void par_iterate_nmethod_regions_to_add(G1HeapRegionClosure* cl,
-                                          G1HeapRegionClaimer* claimer,
-                                          uint worker_id);
-  uint num_nmethod_regions_to_add() const { return _num_nmethod_regions_to_add.load_relaxed(); }
-
   void record_unused_optional_region(G1HeapRegion* hr);
 #if TASKQUEUE_STATS
   void print_partial_array_task_stats();
 #endif // TASKQUEUE_STATS
 
   G1ParScanThreadState* state_for_worker(uint worker_id);
+  G1ParScanSharedState* shared_state() { return &_shared_state; }
   uint num_workers() const { return _num_workers; }
 
   const size_t* surviving_young_words() const;
